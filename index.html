@@ -1,0 +1,969 @@
+﻿<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Dream, Plan, Do! | Thomas M. Wells</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&amp;family=Work+Sans:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "on-tertiary-container": "#9d9c95",
+                        "on-primary-container": "#82a48f",
+                        "on-tertiary-fixed-variant": "#474742",
+                        "on-tertiary-fixed": "#1b1c17",
+                        "outline-variant": "#c1c8c2",
+                        "on-background": "#1b1c1c",
+                        "surface-container-low": "#f6f3f2",
+                        "secondary": "#386931",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#f0eded",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#424843",
+                        "surface-container-highest": "#e4e2e1",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#dcd9d9",
+                        "tertiary": "#1e1f1a",
+                        "surface-variant": "#e4e2e1",
+                        "on-primary-fixed-variant": "#2d4d3c",
+                        "secondary-container": "#b6eea8",
+                        "primary-container": "#1a3a2a",
+                        "on-primary-fixed": "#002113",
+                        "on-secondary-container": "#3d6e35",
+                        "on-surface": "#1b1c1c",
+                        "on-secondary-fixed": "#002201",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#fcf9f8",
+                        "tertiary-container": "#34342f",
+                        "background": "#fcf9f8",
+                        "primary": "#032416",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#456553",
+                        "on-secondary-fixed-variant": "#20511b",
+                        "inverse-primary": "#abcfb8",
+                        "secondary-fixed-dim": "#9ed590",
+                        "surface": "#fcf9f8",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#b9f1aa",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#abcfb8",
+                        "outline": "#727973",
+                        "surface-container-high": "#eae7e7",
+                        "primary-fixed": "#c7ebd4",
+                        "tertiary-fixed-dim": "#c8c7bf",
+                        "tertiary-fixed": "#e4e3db",
+                        "inverse-on-surface": "#f3f0f0",
+                        "inverse-surface": "#303030"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "base": "8px",
+                        "section-padding-h": "24px",
+                        "section-padding-v": "120px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Libre Caslon Text"],
+                        "headline-lg": ["Libre Caslon Text"],
+                        "label-sm": ["Work Sans"],
+                        "body-md": ["Work Sans"],
+                        "headline-lg-mobile": ["Libre Caslon Text"],
+                        "body-lg": ["Work Sans"],
+                        "headline-md": ["Libre Caslon Text"],
+                        "label-lg": ["Work Sans"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["72px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-lg": ["20px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "label-lg": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <!-- GSAP + ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
+    <style>
+        /* â”€â”€ Page load clip â”€â”€ */
+        .clip-reveal {
+            clip-path: inset(0 100% 0 0);
+        }
+        /* â”€â”€ Floating particle â”€â”€ */
+        .hero-particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            will-change: transform;
+        }
+        /* â”€â”€ Magnetic button wrapper â”€â”€ */
+        .magnetic {
+            display: inline-block;
+        }
+        /* â”€â”€ Smooth cursor follower â”€â”€ */
+        #cursor-dot {
+            position: fixed;
+            top: 0; left: 0;
+            width: 8px; height: 8px;
+            background: #386931;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width .2s, height .2s, background .2s;
+        }
+        #cursor-ring {
+            position: fixed;
+            top: 0; left: 0;
+            width: 36px; height: 36px;
+            border: 1.5px solid rgba(56,105,49,.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+        }
+        /* hide default cursor site-wide — desktop only */
+        @media (pointer: fine) {
+            * { cursor: none !important; }
+        }
+        /* prevent horizontal overflow from off-screen GSAP elements */
+        html, body { overflow-x: hidden; }
+        /* smooth in-page navigation */
+        html { scroll-behavior: smooth; }
+        /* offset anchored sections so they clear the fixed 80px navbar */
+        [id] { scroll-margin-top: 96px; }
+        /* mobile menu drawer */
+        #mobile-menu {
+            display: none;
+            position: fixed;
+            top: 80px; left: 0; right: 0;
+            background: #fcf9f8;
+            border-top: 1px solid #c1c8c2;
+            z-index: 49;
+            padding: 24px;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: 0 8px 24px -4px rgba(3,36,22,0.12);
+        }
+        #mobile-menu.open { display: flex; }
+        #mobile-menu a, #mobile-menu button {
+            width: 100%;
+            text-align: left;
+        }
+        /* â”€â”€ Scroll progress bar â”€â”€ */
+        #progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            height: 2px;
+            background: #386931;
+            transform-origin: left;
+            transform: scaleX(0);
+            z-index: 10000;
+            width: 100%;
+        }
+        /* â”€â”€ Initially hidden for GSAP reveal â”€â”€ */
+        .gsap-hidden {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        .gsap-hidden-left {
+            opacity: 0;
+            transform: translateX(-40px);
+        }
+        .gsap-hidden-right {
+            opacity: 0;
+            transform: translateX(40px);
+        }
+        .gsap-hidden-scale {
+            opacity: 0;
+            transform: scale(0.88);
+        }
+
+        .wood-grain-overlay {
+            background-image: repeating-radial-gradient(circle at 50% 50%, rgba(26, 58, 42, 0.05) 0px, rgba(26, 58, 42, 0.05) 1px, transparent 1px, transparent 100%);
+            background-size: 100px 100px;
+        }
+
+        .growth-ring-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #727973, transparent);
+            position: relative;
+        }
+
+        .growth-ring-divider::after {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background-image: radial-gradient(circle, #386931 20%, transparent 20%);
+            background-size: 4px 4px;
+            background-color: #fcf9f8;
+        }
+
+        .editorial-shadow {
+            box-shadow: 0 4px 20px -4px rgba(3, 36, 22, 0.1);
+        }
+
+        /* â”€â”€ Fill-sweep button animation â”€â”€ */
+        .btn-fill {
+            cursor: pointer;
+            transition: color 0.4s ease, border-color 0.4s ease;
+            background-size: 200% 100%;
+            background-position: 100% 0;
+            transition: background-position 0.4s ease, color 0.4s ease;
+        }
+
+        .btn-fill:hover {
+            background-position: 0 0;
+        }
+
+        /* Variant: secondary (#386931 bg â†’ white text) */
+        .btn-fill-secondary {
+            border: 2px solid #386931;
+            background-image: linear-gradient(to right, #ffffff 50%, #386931 50%);
+            color: #ffffff;
+        }
+
+        .btn-fill-secondary:hover {
+            color: #032416;
+        }
+
+        /* Variant: secondary-fixed (#b9f1aa bg â†’ dark text) */
+        .btn-fill-secondary-fixed {
+            border: 2px solid #b9f1aa;
+            background-image: linear-gradient(to right, #002201 50%, #b9f1aa 50%);
+            color: #002201;
+        }
+
+        .btn-fill-secondary-fixed:hover {
+            color: #b9f1aa;
+        }
+
+        /* Variant: primary (#032416 bg â†’ white text) */
+        .btn-fill-primary {
+            border: 2px solid #032416;
+            background-image: linear-gradient(to right, #ffffff 50%, #032416 50%);
+            color: #ffffff;
+        }
+
+        .btn-fill-primary:hover {
+            color: #032416;
+        }
+
+        /* Variant: outline (transparent bg, on-primary border/text) */
+        .btn-fill-outline {
+            border: 2px solid #82a48f;
+            background-image: linear-gradient(to right, #82a48f 50%, transparent 50%);
+            color: #ffffff;
+        }
+
+        .btn-fill-outline:hover {
+            color: #032416;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background selection:bg-secondary-fixed-dim selection:text-on-secondary-fixed">
+    <!-- Custom cursor -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+    <!-- Scroll progress bar -->
+    <div id="progress-bar"></div>
+
+    <!-- TopNavBar -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-surface h-20 transition-all duration-300">
+        <nav class="flex justify-between items-center w-full px-section-padding-h max-w-container-max mx-auto h-full">
+            <div class="font-display-lg text-headline-md text-primary">Dream, Plan, Do!</div>
+            <div class="hidden md:flex gap-gutter items-center">
+                <a class="font-label-lg text-label-lg uppercase text-on-surface-variant hover:text-secondary transition-colors"
+                    href="#about">About</a>
+                <a class="font-label-lg text-label-lg uppercase text-on-surface-variant hover:text-secondary transition-colors"
+                    href="#chapters">Chapters</a><a
+                    class="font-label-lg text-label-lg uppercase text-on-surface-variant hover:text-secondary transition-colors"
+                    href="#testimonials">Impact</a>
+                <a class="font-label-lg text-label-lg uppercase text-on-surface-variant hover:text-secondary transition-colors"
+                    href="#author">Author</a>
+                <a href="https://a.co/d/0eRNkCKF" target="_blank"
+                    class="btn-fill btn-fill-secondary px-8 py-3 font-label-lg text-label-lg uppercase active:scale-95 inline-block">
+                    Pre-order Now
+                </a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden text-primary" aria-label="Open menu" aria-expanded="false">
+                <span class="material-symbols-outlined" id="mobile-menu-icon">menu</span>
+            </button>
+        </nav>
+    </header>
+    <!-- Mobile menu drawer -->
+    <div id="mobile-menu" role="dialog" aria-label="Navigation menu">
+        <a class="font-label-lg text-label-lg uppercase text-on-surface-variant hover:text-secondary transition-colors"
+            href="#about" onclick="closeMobileMenu()">About</a>
+        <a class="font-label-lg text-label-lg uppercase text-on-surface-variant hover:text-secondary transition-colors"
+            href="#chapters" onclick="closeMobileMenu()">Chapters</a>
+        <a class="font-label-lg text-label-lg uppercase text-on-surface-variant hover:text-secondary transition-colors"
+            href="#testimonials" onclick="closeMobileMenu()">Impact</a>
+        <a class="font-label-lg text-label-lg uppercase text-on-surface-variant hover:text-secondary transition-colors"
+            href="#author" onclick="closeMobileMenu()">Author</a>
+        <a href="https://a.co/d/0eRNkCKF" target="_blank" onclick="closeMobileMenu()"
+            class="btn-fill btn-fill-secondary px-8 py-3 font-label-lg text-label-lg uppercase active:scale-95 mt-2 inline-block">
+            Pre-order Now
+        </a>
+    </div>
+    <main class="pt-20">
+        <!-- Hero Section -->
+        <section id="hero-section" class="relative bg-primary-container text-on-primary min-h-[90vh] flex items-center overflow-hidden">
+            <!-- Hero particles container -->
+            <div id="hero-particles" class="absolute inset-0 pointer-events-none z-0"></div>
+            <div class="absolute inset-0 pointer-events-none opacity-20 bg-center bg-no-repeat bg-cover"
+                style="background-image: url(book-3d.jpg); mix-blend-mode: overlay;">
+            </div>
+            <div class="absolute inset-0 wood-grain-overlay opacity-20"></div>
+            <div
+                class="relative w-full px-section-padding-h max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter items-center py-section-padding-v">
+                <div class="md:col-span-7 flex flex-col items-start gap-8">
+                    <span id="hero-eyebrow"
+                        class="font-label-lg text-label-lg uppercase tracking-widest text-on-primary-container gsap-hidden">Official
+                        Book Launch</span>
+                    <h1 id="hero-title" class="font-display-lg text-display-lg md:leading-[1.1] gsap-hidden">Dream, Plan, Do!</h1>
+                    <p id="hero-subtitle" class="font-headline-md text-headline-md text-on-primary-container italic max-w-2xl gsap-hidden">
+                        The Wells Mountain Initiative Story 2005-2025
+                    </p>
+                    <p id="hero-body" class="font-body-lg text-body-lg max-w-xl opacity-90 gsap-hidden">
+                        Celebrating two decades of impact through education, community building and "giving back".
+                    </p>
+                    <div id="hero-cta" class="flex flex-wrap gap-4 pt-4 gsap-hidden">
+                        <a href="https://a.co/d/0eRNkCKF" target="_blank"
+                            class="magnetic btn-fill btn-fill-secondary-fixed px-10 py-5 font-label-lg text-label-lg uppercase font-bold active:scale-95">
+                            Pre-order Now
+                        </a>
+                        <a href="https://wellsonthehighway.com/wmi#bookContent" class="magnetic btn-fill btn-fill-outline px-10 py-5 font-label-lg text-label-lg uppercase">
+                            Read the Preface
+                        </a>
+                    </div>
+                </div>
+                <div id="hero-book" class="md:col-span-5 relative mt-12 md:mt-0 gsap-hidden-scale">
+                    <div class="relative z-10 p-4" id="book-tilt">
+                        <img alt="The front cover of the book Dream, Plan, Do! by Thomas M. Wells, showcasing a minimalist, elegant layout with organic wood-grain textures and a sophisticated forest green color scheme. The lighting is focused and warm, highlighting the book's premium editorial design and high-quality finish, set against a background of soft shadows."
+                            class="w-full h-auto shadow-2xl" src="book-3d.png">
+                    </div>
+                    <!-- Decorative element -->
+                    <div id="hero-ring" class="absolute -bottom-10 -right-10 w-64 h-64 border border-secondary/30 rounded-full" style="opacity:0"></div>
+                </div>
+            </div>
+        </section>
+        <!-- Preface Excerpt -->
+        <section class="bg-surface py-section-padding-v" id="about">
+            <div class="max-w-container-max mx-auto px-section-padding-h">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+                    <div class="md:col-span-8 md:col-start-3">
+                        <div class="flex flex-col items-center text-center mb-16">
+                            <div class="section-line w-12 h-[2px] bg-secondary mb-6" style="transform: scaleX(0); transform-origin: left;"></div>
+                            <h2 class="scroll-reveal font-headline-lg text-headline-lg mb-4 gsap-hidden">A Vision for Global Education</h2>
+                            <p class="scroll-reveal font-label-lg text-label-lg uppercase tracking-widest text-outline gsap-hidden">Excerpts from
+                                the Preface</p>
+                        </div>
+                        <div class="scroll-reveal gsap-hidden-scale bg-surface-container-low p-12 md:p-20 border border-outline-variant relative">
+                            <div class="absolute top-0 left-0 w-full h-full wood-grain-overlay opacity-[0.03]"></div>
+                            <div class="relative space-y-8">
+                                <p class="font-display-lg text-headline-md text-primary italic leading-relaxed">
+                                    "Education is not just about the classroom; it's about the potential unlocked when a
+                                    single person is given the tools to dream big and the plan to execute those dreams."
+                                </p>
+                                <div class="font-body-lg text-body-lg text-on-surface-variant space-y-6 leading-loose">
+                                    <p class="">Over the past twenty years, the Wells Mountain Initiative has been more
+                                        than a scholarship program. It has been a testament to the power of belief in
+                                        human potential. From humble beginnings in 2005 to a global network of
+                                        changemakers today, this story belongs to every student who dared to look beyond
+                                        their circumstances.</p>
+                                    <p class="">As we reflect on 2005-2025, 'Dream, Plan, Do!' serves as both a history
+                                        and a roadmap for the future of global philanthropy and community-led
+                                        development.</p>
+                                </div>
+                                <div class="pt-8 border-t border-outline-variant flex items-center gap-4">
+                                    <div class="font-label-lg text-label-lg uppercase text-primary">Thomas M. Wells
+                                    </div>
+                                    <span class="text-outline text-sm">Founder, Wells Mountain Initiative</span>
+                                </div>
+                                <div class="pt-4"><a href="https://substack.com/@wellsonthehighway"
+                                        class="magnetic btn-fill btn-fill-primary flex items-center gap-2 px-8 py-4 font-label-lg text-label-lg uppercase active:scale-95 w-2/4"><span
+                                            class="material-symbols-outlined">menu_book</span>Connect with Papa Tom</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Programs & Photo Strip -->
+        <section class="py-section-padding-v overflow-hidden">
+            <div class="max-w-container-max mx-auto px-section-padding-h">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+                    <div class="md:col-span-5 order-2 md:order-1">
+                        <div id="photo-strip" class="relative p-2 bg-white border border-outline-variant shadow-lg rotate-[-2deg] gsap-hidden-left">
+                            <img alt="A vertical strip of three candid, black and white photographs showing joyful students and community members engaged in the Wells Mountain Initiative programs. The style is raw and authentic, captured in natural outdoor lighting, conveying a sense of genuine human connection, hope, and grassroots impact within a global development context."
+                                class="w-full h-auto grayscale contrast-125"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM8GQpD3OgX7L8lI1gvn2BstytscheB3auJylQrxjxW_XEByhbDUBOKK3tXo5TOYu3jiof_4faQk-PSpOcCfbFXT2XoE9jiPuZLCpEXYUypgezCFP8vOGxZKsGF5x4vReGC7TqLDarur8F8z08807uyQMAc2HolXn6C4wLIU-rm-8O1WmQQ0rJ0mz5jxWWMs-MEH8dTytZfj64FwJ7U9dt2silQe5wa5pE7eZiridhRuTLp-JRejmmzDEuDWQd7pO8BPeRL4ebk0Q">
+                        </div>
+                    </div>
+                    <div class="md:col-span-6 md:col-start-7 order-1 md:order-2 flex flex-col gap-6">
+                        <h2 class="scroll-reveal font-headline-lg text-headline-lg text-primary gsap-hidden">Twenty Years of Impact</h2>
+                        <p class="scroll-reveal font-body-lg text-body-lg text-on-surface-variant gsap-hidden">The Wells Mountain Initiative has
+                            fostered a generation of leaders. The book explores the core pillars that made this growth
+                            possible.</p>
+                        <ul class="space-y-4 pt-4">
+                            <li class="pillar-item flex items-start gap-4 gsap-hidden">
+                                <span class="material-symbols-outlined text-secondary pt-1">local_florist</span>
+                                <div>
+                                    <h4 class="font-label-lg text-label-lg uppercase text-primary">Holistic Education
+                                    </h4>
+                                    <p class="font-body-md text-body-md text-on-surface-variant">Beyond tuition:
+                                        mentoring and professional development.</p>
+                                </div>
+                            </li>
+                            <li class="pillar-item flex items-start gap-4 gsap-hidden">
+                                <span class="material-symbols-outlined text-secondary pt-1">groups</span>
+                                <div>
+                                    <h4 class="font-label-lg text-label-lg uppercase text-primary">Global Community</h4>
+                                    <p class="font-body-md text-body-md text-on-surface-variant">A network of <span class="counter font-bold text-secondary" data-target="1000">0</span>+ Scholars across <span class="counter font-bold text-secondary" data-target="55">0</span>+ countries.</p>
+                                </div>
+                            </li>
+                            <li class="pillar-item flex items-start gap-4 gsap-hidden">
+                                <span class="material-symbols-outlined text-secondary pt-1">trending_up</span>
+                                <div>
+                                    <h4 class="font-label-lg text-label-lg uppercase text-primary">Sustainable Progress
+                                    </h4>
+                                    <p class="font-body-md text-body-md text-on-surface-variant">Long-term investment in
+                                        social entrepreneurship.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Divider -->
+        <div class="max-w-container-max mx-auto px-section-padding-h py-12">
+            <div class="growth-ring-divider"></div>
+        </div>
+
+        <!-- Table of Contents -->
+        <section class="py-section-padding-v bg-surface-container-low" id="chapters">
+            <div class="max-w-container-max mx-auto px-section-padding-h">
+                <div class="text-center mb-20">
+                    <h2 class="scroll-reveal font-headline-lg text-headline-lg text-primary mb-4 gsap-hidden">Inside the Journey</h2>
+                    <p class="scroll-reveal font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto gsap-hidden">Explore the five
+                        major sections of the book, chronicling the evolution from a singular vision to a global
+                        reality.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-12">
+                    <!-- Chapter Card 1 -->
+                    <div class="chapter-card border-b border-outline-variant pb-8 group transition-all duration-300 gsap-hidden">
+                        <span class="font-label-sm text-label-sm text-secondary mb-2 block uppercase">Section I</span>
+                        <h3 class="font-headline-md text-headline-md text-primary mb-4 group-hover:text-secondary transition-colors">
+                            History: The Seeds are Sown</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Discover the initial sparks that
+                            led Tom Wells to start the initiative in 2005 and the core values that remain unchanged.</p>
+                    </div>
+                    <!-- Chapter Card 2 -->
+                    <div class="chapter-card border-b border-outline-variant pb-8 group transition-all duration-300 gsap-hidden">
+                        <span class="font-label-sm text-label-sm text-secondary mb-2 block uppercase">Section II</span>
+                        <h3 class="font-headline-md text-headline-md text-primary mb-4 group-hover:text-secondary transition-colors">
+                            Programs: Cultivating Potential</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant">An in-depth look at WMI's unique
+                            scholarship model, networking and suppport programs, and community development grants.</p>
+                    </div>
+                    <!-- Chapter Card 3 -->
+                    <div class="chapter-card border-b border-outline-variant pb-8 group transition-all duration-300 gsap-hidden">
+                        <span class="font-label-sm text-label-sm text-secondary mb-2 block uppercase">Section III</span>
+                        <h3 class="font-headline-md text-headline-md text-primary mb-4 group-hover:text-secondary transition-colors">
+                            Dream Big Conferences</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Stories from the global summits
+                            that brings Scholars together to collaborate, learn, and grow as one unit.</p>
+                    </div>
+                    <!-- Chapter Card 4 -->
+                    <div class="chapter-card border-b border-outline-variant pb-8 group transition-all duration-300 gsap-hidden">
+                        <span class="font-label-sm text-label-sm text-secondary mb-2 block uppercase">Section IV</span>
+                        <h3 class="font-headline-md text-headline-md text-primary mb-4 group-hover:text-secondary transition-colors">
+                            Tell Your Story</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Vivid testimonials and first-hand
+                            accounts from Scholars whose lives were transformed by the opportunity to learn.</p>
+                    </div>
+                    <!-- Chapter Card 5 -->
+                    <div class="chapter-card md:col-span-2 border-b border-outline-variant pb-8 group transition-all duration-300 gsap-hidden">
+                        <span class="font-label-sm text-label-sm text-secondary mb-2 block uppercase">Section V</span>
+                        <h3 class="font-headline-md text-headline-md text-primary mb-4 group-hover:text-secondary transition-colors">
+                            Looking Back and Looking Forward</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant">A reflective conclusion on 20 years
+                            of work and a strategic vision for the next decade of WMI impact.</p>
+                    </div>
+                </div>
+                <div class="mt-16 flex justify-center scroll-reveal gsap-hidden">
+                    <a href="https://wellsonthehighway.com/wmi#bookContent" class="magnetic btn-fill btn-fill-primary flex items-center gap-2 px-10 py-5 font-label-lg text-label-lg uppercase active:scale-95">
+                        <span class="material-symbols-outlined">format_list_bulleted</span>Explore the Chapters
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Quote -->
+        <section id="impact-quote" class="py-section-padding-v bg-primary-container text-on-primary text-center relative overflow-hidden">
+            <div class="absolute inset-0 pointer-events-none opacity-20 bg-center bg-no-repeat bg-cover"
+                style="background-image: url(book-3d.png); mix-blend-mode: overlay;"></div>
+            <div class="absolute inset-0 wood-grain-overlay opacity-10"></div>
+            <div class="max-w-container-max mx-auto px-section-padding-h relative">
+                <div id="quote-line" class="w-16 h-[1px] bg-on-primary-container mx-auto mb-10" style="transform:scaleX(0);transform-origin:center;"></div>
+                <blockquote id="impact-blockquote"
+                    class="font-display-lg text-headline-lg md:text-[56px] leading-tight italic max-w-4xl mx-auto mb-10 gsap-hidden">
+                    "World-changers, all. I am so proud of each and every one of them."
+                </blockquote>
+                <div id="quote-attribution" class="font-label-lg text-label-lg uppercase tracking-widest text-on-primary-container gsap-hidden">
+                    — Thomas M. Wells
+                </div>
+            </div>
+        </section>
+
+        <!-- Scholar Testimonials Section -->
+        <section class="py-section-padding-v bg-surface-container-low" id="testimonials">
+            <div class="max-w-container-max mx-auto px-section-padding-h">
+                <div class="text-center mb-16">
+                    <div class="section-line w-12 h-[2px] bg-secondary mx-auto mb-6" style="transform:scaleX(0);transform-origin:left;"></div>
+                    <h2 class="scroll-reveal font-headline-lg text-headline-lg text-primary gsap-hidden">Voices of the WMI Community</h2>
+                    <p class="scroll-reveal font-label-lg text-label-lg uppercase tracking-widest text-outline mt-4 gsap-hidden">Impact Across the Globe</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card bg-surface p-8 border border-outline-variant relative flex flex-col h-full gsap-hidden">
+                        <blockquote class="font-headline-md text-[22px] text-on-surface italic leading-relaxed mb-8 flex-grow">
+                            "Education was the key that opened doors I didn't even know existed. WMI didn't just fund my
+                            degree; they believed in my potential to lead."
+                        </blockquote>
+                        <div>
+                            <p class="font-label-lg text-label-lg uppercase text-secondary font-bold">Victoria Galley (Our very frst Scholar)</p>
+                            <p class="font-body-md text-body-md text-outline">Ghana</p>
+                        </div>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card bg-surface p-8 border border-outline-variant relative flex flex-col h-full gsap-hidden">
+                        <blockquote class="font-headline-md text-[22px] text-on-surface italic leading-relaxed mb-8 flex-grow">
+                            "Through WMI, I learned that dreaming is only the first step. The 'Plan' and 'Do' are what
+                            actually transform a community."
+                        </blockquote>
+                        <div>
+                            <p class="font-label-lg text-label-lg uppercase text-secondary font-bold">Babatunde Bale</p>
+                            <p class="font-body-md text-body-md text-outline">Nigeria</p>
+                        </div>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card bg-surface p-8 border border-outline-variant relative flex flex-col h-full gsap-hidden">
+                        <blockquote class="font-headline-md text-[22px] text-on-surface italic leading-relaxed mb-8 flex-grow">
+                            "I am now part of a global network of changemakers. We are the living legacy of a vision
+                            that started with a single scholarship."
+                        </blockquote>
+                        <div>
+                            <p class="font-label-lg text-label-lg uppercase text-secondary font-bold">Stella Tamandani Banda</p>
+                            <p class="font-body-md text-body-md text-outline">Malawi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Author Bio -->
+        <section class="py-section-padding-v bg-surface" id="author">
+            <div class="max-w-container-max mx-auto px-section-padding-h">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+                    <div class="md:col-span-5 flex flex-col gap-8">
+                        <h2 class="scroll-reveal font-headline-lg text-headline-lg text-primary gsap-hidden">About the Author</h2>
+                        <div class="scroll-reveal font-body-lg text-body-lg text-on-surface-variant space-y-6 gsap-hidden">
+                            <p>Thomas M. Wells is the founder and heart behind the Wells Mountain Initiative. A
+                                philanthropist with a radical vision, Tom has dedicated two decades to bridging the gap
+                                in global education access.</p>
+                            <p>His journey has taken him across continents, meeting Scholars in their home
+                                villages, and building a global family that transcends borders and cultures. This book
+                                is his personal account of those 20 years—the challenges, the triumphs, and the enduring
+                                belief that education is the most powerful tool for social change.</p>
+                        </div>
+                        <div class="pt-4 scroll-reveal gsap-hidden">
+                            <a href="https://wellsonthehighway.com" target="_blank"
+                                class="magnetic btn-fill btn-fill-primary px-8 py-4 font-label-lg text-label-lg uppercase active:scale-95">
+                                Visit Wellsonthehighway.com
+                            </a>
+                        </div>
+                    </div>
+                    <div id="author-photo" class="md:col-span-6 md:col-start-7 gsap-hidden-right">
+                        <div class="aspect-[4/5] bg-surface-container border border-outline-variant p-6 relative">
+                            <div class="absolute top-0 left-0 w-full h-full wood-grain-overlay opacity-10"></div>
+                            <div class="w-full h-full bg-surface relative z-10 flex items-center justify-center text-center">
+                                <img src="profile.png" alt="Thomas Wells" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA / Waitlist -->
+        <section class="py-section-padding-v bg-surface-container-highest" id="waitlist">
+            <div class="max-w-container-max mx-auto px-section-padding-h">
+                <div id="final-cta" class="bg-primary-container p-12 md:p-24 text-center relative gsap-hidden-scale">
+                    <div class="absolute inset-0 wood-grain-overlay opacity-20"></div>
+                    <div class="relative z-10">
+                        <h2 class="font-display-lg text-headline-lg md:text-[64px] text-on-primary mb-8">Own the Story.
+                            Support the Future.</h2>
+                        <p class="font-body-lg text-body-lg text-on-primary-container max-w-2xl mx-auto mb-12">
+                            Join the waitlist to be the first to know when <span class="italic">Dream, Plan, Do!</span>
+                            is available. Every pre-order supports the continued mission of the Wells Mountain
+                            Initiative, funding education for students in the developing world.
+                        </p>
+                        <form id="waitlist-form" class="max-w-xl mx-auto" novalidate>
+                            <div class="flex flex-col md:flex-row gap-4 items-stretch justify-center">
+                                <label for="waitlist-email" class="sr-only">Email address</label>
+                                <input id="waitlist-email" name="email" type="email" required autocomplete="email"
+                                    placeholder="you@example.com"
+                                    class="flex-grow px-6 py-5 bg-surface text-on-surface font-body-lg text-body-lg border-2 border-secondary-fixed placeholder:text-outline focus:outline-none focus:border-secondary-fixed-dim focus:ring-2 focus:ring-secondary-fixed-dim/40 rounded-none">
+                                <button type="submit" id="waitlist-submit"
+                                    class="magnetic btn-fill btn-fill-secondary-fixed px-12 py-5 font-label-lg text-label-lg uppercase font-bold active:scale-95 disabled:opacity-60 disabled:pointer-events-none whitespace-nowrap">
+                                    Join the Waitlist
+                                </button>
+                            </div>
+                            <p id="waitlist-message" role="status" aria-live="polite"
+                                class="font-body-md text-body-md mt-5 min-h-[1.5em] text-on-primary-container"></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-tertiary text-on-tertiary w-full py-base">
+        <div class="max-w-container-max mx-auto px-section-padding-h flex flex-col md:flex-row justify-between items-center h-32 md:h-24">
+            <div class="font-headline-md text-headline-md text-on-tertiary">Dream, Plan, Do!</div>
+            <div class="font-body-md text-body-md text-on-tertiary opacity-60">
+                © 2026 Thomas M. Wells. All rights reserved.
+            </div>
+            <div class="flex gap-8 items-center"></div>
+        </div>
+    </footer>
+
+    <script>
+    // ─────────────────────────────────────────────
+    //  GSAP ANIMATION SUITE
+    // ─────────────────────────────────────────────
+    gsap.registerPlugin(ScrollTrigger);
+
+    // ── Custom cursor (desktop pointer devices only) ──
+    const cursorDot  = document.getElementById('cursor-dot');
+    const cursorRing = document.getElementById('cursor-ring');
+    const isPointerFine = window.matchMedia('(pointer: fine)').matches;
+    if (isPointerFine) {
+        window.addEventListener('mousemove', e => {
+            gsap.to(cursorDot,  { x: e.clientX, y: e.clientY, duration: 0.1, ease: 'power2.out' });
+            gsap.to(cursorRing, { x: e.clientX, y: e.clientY, duration: 0.35, ease: 'power3.out' });
+        });
+        document.querySelectorAll('a, button, .chapter-card').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                gsap.to(cursorRing, { width: 60, height: 60, borderColor: 'rgba(56,105,49,0.85)', duration: 0.3 });
+                gsap.to(cursorDot,  { width: 12, height: 12, duration: 0.2 });
+            });
+            el.addEventListener('mouseleave', () => {
+                gsap.to(cursorRing, { width: 36, height: 36, borderColor: 'rgba(56,105,49,0.5)', duration: 0.3 });
+                gsap.to(cursorDot,  { width: 8, height: 8, duration: 0.2 });
+            });
+        });
+        document.addEventListener('mouseleave', () => { gsap.to([cursorDot, cursorRing], { opacity: 0, duration: 0.2 }); });
+        document.addEventListener('mouseenter', () => { gsap.to([cursorDot, cursorRing], { opacity: 1, duration: 0.2 }); });
+    } else {
+        // Hide cursor elements on touch devices
+        if (cursorDot) cursorDot.style.display = 'none';
+        if (cursorRing) cursorRing.style.display = 'none';
+    }
+
+    // ── Scroll progress bar ──
+    gsap.to('#progress-bar', {
+        scaleX: 1, ease: 'none',
+        scrollTrigger: { scrub: 0.3, start: 'top top', end: 'bottom bottom' }
+    });
+
+    // ── Navbar scroll ──
+    const navHeader = document.querySelector('header');
+    ScrollTrigger.create({
+        start: 'top -60',
+        onEnter:     () => navHeader.classList.add('editorial-shadow', 'bg-surface-bright'),
+        onLeaveBack: () => navHeader.classList.remove('editorial-shadow', 'bg-surface-bright')
+    });
+
+    // ── Hero floating particles ──
+    const heroParticlesEl = document.getElementById('hero-particles');
+    for (let i = 0; i < 18; i++) {
+        const p = document.createElement('div');
+        p.className = 'hero-particle';
+        const sz = Math.random() * 6 + 2;
+        const isLight = Math.random() > 0.5;
+        p.style.cssText = `width:${sz}px;height:${sz}px;background:rgba(${isLight ? '171,207,184' : '56,105,49'},${Math.random() * 0.25 + 0.05});left:${Math.random()*100}%;top:${Math.random()*100}%;`;
+        heroParticlesEl.appendChild(p);
+        gsap.to(p, {
+            y: (Math.random() - 0.5) * 120,
+            x: (Math.random() - 0.5) * 60,
+            duration: Math.random() * 6 + 5,
+            repeat: -1, yoyo: true,
+            ease: 'sine.inOut',
+            delay: Math.random() * 5
+        });
+    }
+
+    // ── Hero entrance sequence ──
+    gsap.timeline({ defaults: { ease: 'power3.out' } })
+        .to('#hero-eyebrow', { opacity: 1, y: 0, duration: 0.7 }, 0.3)
+        .to('#hero-title',   { opacity: 1, y: 0, duration: 0.9 }, 0.55)
+        .to('#hero-subtitle',{ opacity: 1, y: 0, duration: 0.7 }, 0.85)
+        .to('#hero-body',    { opacity: 1, y: 0, duration: 0.7 }, 1.0)
+        .to('#hero-cta',     { opacity: 1, y: 0, duration: 0.6 }, 1.2)
+        .to('#hero-book',    { opacity: 1, scale: 1, duration: 1.1, ease: 'back.out(1.4)' }, 0.6)
+        .to('#hero-ring',    { opacity: 1, duration: 0.8 }, 1.2);
+
+    // ── Book 3-D tilt on mouse ──
+    const bookTiltEl = document.getElementById('book-tilt');
+    const heroSection = document.getElementById('hero-section');
+    if (heroSection && bookTiltEl) {
+        heroSection.addEventListener('mousemove', e => {
+            const r = bookTiltEl.getBoundingClientRect();
+            const dx = (e.clientX - (r.left + r.width / 2)) / r.width;
+            const dy = (e.clientY - (r.top + r.height / 2)) / r.height;
+            gsap.to(bookTiltEl, { rotateY: dx * 18, rotateX: -dy * 12, transformPerspective: 900, duration: 0.6, ease: 'power2.out' });
+        });
+        heroSection.addEventListener('mouseleave', () => {
+            gsap.to(bookTiltEl, { rotateY: 0, rotateX: 0, duration: 0.8, ease: 'elastic.out(1,0.5)' });
+        });
+    }
+
+    // ── Hero parallax on scroll ──
+    gsap.to('#hero-book', {
+        y: -60, ease: 'none',
+        scrollTrigger: { trigger: '#hero-section', start: 'top top', end: 'bottom top', scrub: 1.5 }
+    });
+
+    // ── Generic scroll reveal helper ──
+    function revealOnScroll(sel, opts) {
+        opts = opts || {};
+        gsap.utils.toArray(sel).forEach(el => {
+            gsap.to(el, {
+                opacity: 1, y: 0, x: 0, scale: 1,
+                duration: opts.duration || 0.9,
+                ease: opts.ease || 'power3.out',
+                delay: opts.delay || 0,
+                scrollTrigger: { trigger: el, start: opts.start || 'top 88%', toggleActions: 'play none none none' }
+            });
+        });
+    }
+
+    // ── Section accent lines ──
+    gsap.utils.toArray('.section-line').forEach(line => {
+        gsap.to(line, { scaleX: 1, duration: 1, ease: 'power3.inOut',
+            scrollTrigger: { trigger: line, start: 'top 90%' } });
+    });
+
+    // ── Preface & generic reveals ──
+    revealOnScroll('.scroll-reveal');
+
+    // ── Photo strip slide in ──
+    gsap.to('#photo-strip', {
+        opacity: 1, x: 0, duration: 1.1, ease: 'power3.out',
+        scrollTrigger: { trigger: '#photo-strip', start: 'top 85%' }
+    });
+
+    // ── Pillar list stagger ──
+    gsap.utils.toArray('.pillar-item').forEach((item, i) => {
+        gsap.to(item, {
+            opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', delay: i * 0.15,
+            scrollTrigger: { trigger: item, start: 'top 88%' }
+        });
+    });
+
+    // ── Animated counters ──
+    document.querySelectorAll('.counter').forEach(el => {
+        const target = parseInt(el.dataset.target, 10);
+        ScrollTrigger.create({
+            trigger: el, start: 'top 85%', once: true,
+            onEnter: () => {
+                const proxy = { val: 0 };
+                gsap.to(proxy, {
+                    val: target, duration: 2, ease: 'power2.out',
+                    onUpdate: function() { el.textContent = Math.round(proxy.val); }
+                });
+            }
+        });
+    });
+
+    // ── Chapter cards stagger ──
+    gsap.utils.toArray('.chapter-card').forEach((card, i) => {
+        gsap.to(card, {
+            opacity: 1, y: 0, duration: 0.75, ease: 'power3.out', delay: (i % 2) * 0.12,
+            scrollTrigger: { trigger: card, start: 'top 88%' }
+        });
+    });
+
+    // ── Impact quote ──
+    gsap.to('#quote-line', {
+        scaleX: 1, duration: 1.2, ease: 'power3.inOut',
+        scrollTrigger: { trigger: '#impact-quote', start: 'top 80%' }
+    });
+    gsap.to('#impact-blockquote', {
+        opacity: 1, y: 0, duration: 1.1, ease: 'power3.out',
+        scrollTrigger: { trigger: '#impact-blockquote', start: 'top 85%' }
+    });
+    gsap.to('#quote-attribution', {
+        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.3,
+        scrollTrigger: { trigger: '#impact-blockquote', start: 'top 85%' }
+    });
+
+    // ── Testimonials stagger ──
+    gsap.utils.toArray('.testimonial-card').forEach((card, i) => {
+        gsap.to(card, {
+            opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: i * 0.18,
+            scrollTrigger: { trigger: card, start: 'top 88%' }
+        });
+    });
+
+    // ── Author section ──
+    revealOnScroll('#author .scroll-reveal');
+    gsap.to('#author-photo', {
+        opacity: 1, x: 0, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: '#author-photo', start: 'top 85%' }
+    });
+
+    // ── Final CTA ──
+    gsap.to('#final-cta', {
+        opacity: 1, scale: 1, duration: 1, ease: 'back.out(1.2)',
+        scrollTrigger: { trigger: '#final-cta', start: 'top 80%' }
+    });
+
+    // ── Magnetic buttons (desktop only) ──
+    if (isPointerFine) {
+        document.querySelectorAll('.magnetic').forEach(btn => {
+            btn.addEventListener('mousemove', function(e) {
+                const r = this.getBoundingClientRect();
+                const dx = (e.clientX - (r.left + r.width / 2)) * 0.3;
+                const dy = (e.clientY - (r.top + r.height / 2)) * 0.3;
+                gsap.to(this, { x: dx, y: dy, duration: 0.35, ease: 'power2.out' });
+            });
+            btn.addEventListener('mouseleave', function() {
+                gsap.to(this, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1,0.4)' });
+            });
+        });
+
+        // ── Chapter card hover lift (desktop only) ──
+        document.querySelectorAll('.chapter-card').forEach(card => {
+            card.addEventListener('mouseenter', () => gsap.to(card, { y: -6, duration: 0.3, ease: 'power2.out' }));
+            card.addEventListener('mouseleave', () => gsap.to(card, { y: 0,  duration: 0.4, ease: 'elastic.out(1,0.5)' }));
+        });
+    }
+
+    // ── Waitlist form → Google Sheet ──
+    const waitlistForm    = document.getElementById('waitlist-form');
+    const waitlistEmail   = document.getElementById('waitlist-email');
+    const waitlistSubmit  = document.getElementById('waitlist-submit');
+    const waitlistMessage = document.getElementById('waitlist-message');
+
+    function setWaitlistMessage(text, kind) {
+        waitlistMessage.textContent = text;
+        // success → light green, error → soft red, neutral → muted on-primary
+        waitlistMessage.style.color =
+            kind === 'success' ? '#b9f1aa' :
+            kind === 'error'   ? '#ffdad6' : '';
+    }
+
+    waitlistForm.addEventListener('submit', async e => {
+        e.preventDefault();
+        const email = waitlistEmail.value.trim();
+
+        if (!waitlistEmail.checkValidity() || !email) {
+            setWaitlistMessage('Please enter a valid email address.', 'error');
+            waitlistEmail.focus();
+            return;
+        }
+
+        const originalLabel = waitlistSubmit.textContent;
+        waitlistSubmit.disabled = true;
+        waitlistSubmit.textContent = 'Joining…';
+        setWaitlistMessage('', null);
+
+        try {
+            await fetch(
+                'https://script.google.com/macros/s/AKfycbysNqFu5F9qz9B0p7aUvMkc5gs9Q6wJJggacX3OJlvmwocLxpApxIo1jud6Yg97uOZLlg/exec',
+                {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: JSON.stringify({ email })
+                }
+            );
+            // no-cors responses are opaque; reaching here means the request was sent
+            setWaitlistMessage("You're on the list! We'll be in touch when the book launches.", 'success');
+            waitlistForm.reset();
+        } catch {
+            setWaitlistMessage('Something went wrong. Please try again.', 'error');
+        } finally {
+            waitlistSubmit.disabled = false;
+            waitlistSubmit.textContent = originalLabel;
+        }
+    });
+
+    // ── Mobile menu ──
+    const mobileMenuBtn  = document.getElementById('mobile-menu-btn');
+    const mobileMenu     = document.getElementById('mobile-menu');
+    const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+
+    function closeMobileMenu() {
+        mobileMenu.classList.remove('open');
+        mobileMenuIcon.textContent = 'menu';
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+    }
+
+    mobileMenuBtn.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.toggle('open');
+        mobileMenuIcon.textContent = isOpen ? 'close' : 'menu';
+        mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Close menu on outside click
+    document.addEventListener('click', e => {
+        if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+            closeMobileMenu();
+        }
+    });
+
+    // Close menu on resize to desktop
+    window.addEventListener('resize', () => {
+        if (window.innerWidth >= 768) closeMobileMenu();
+    });
+    </script>
+</body>
+</html>
